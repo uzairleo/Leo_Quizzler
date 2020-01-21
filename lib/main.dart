@@ -1,70 +1,91 @@
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(new LeoQuizzApp());
+  runApp(new Quizzler());
 }
 
-class LeoQuizzApp extends StatelessWidget {
+class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Leo Quizzler",
-      home: Quizzler(),
+      home: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical:10),
+          child: LeoQuizPage(),
+        ),
+      ),
     );
   }
 }
 
-class Quizzler extends StatefulWidget {
+class LeoQuizPage extends StatefulWidget {
   @override
-  _QuizzlerState createState() => _QuizzlerState();
+  _LeoQuizPageState createState() => _LeoQuizPageState();
 }
 
-class _QuizzlerState extends State<Quizzler> {uble left =8.0;
+class _LeoQuizPageState extends State<LeoQuizPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnimatedContainer(
-        duration: Duration(seconds: 2),
-        child: Column(
-          children:<Widget> [
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: Text("QuestioinArea"),
+    return quizPage();
+  }
+  Widget quizPage()
+  {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Center(
+              child: Text(
+                "Here is a question text",
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
                 ),
               ),
-              Divider(),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                     Padding(
-                       padding: const EdgeInsets.only(right: 8.0,left:8.0),
-                       child: RaisedButton(
-                         
-                         colorBrightness: Brightness.dark,
-                         child: Text("True"),
-                         onPressed: (){},
-                         color: Colors.green,
-                         ),
-                     ),
-                       Padding(
-                         padding: const EdgeInsets.fromLTRB(this.left,),
-                         child: RaisedButton(
-                           colorBrightness: Brightness.dark,
-                         child: Text("false"),
-                         onPressed: (){},
-                         color: Colors.red,
-                         ),
-                       ),
-                  ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                     children: <Widget>[
+                        FlatButton(
+                          child: Text("True"),
+                          onPressed: (){},
+                          colorBrightness: Brightness.dark,
+                          color: Colors.green,
+                        ),
+                        FlatButton(
+                          child: Text("False"),
+                          onPressed: (){},
+                          colorBrightness: Brightness.dark,
+                          color: Colors.red,
+                        )
+                    ],
+                  ),
                 ),
-              ),
-                        ],
-        ),
-      ),
-      
-    );
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Icon(Icons.done,color: Colors.green,),
+                      Icon(Icons.close,color: Colors.red,)
+                      
+                    ],
+                  )
+                )
+
+              ],
+            ),
+          )
+
+        ],
+      );
   }
 }
