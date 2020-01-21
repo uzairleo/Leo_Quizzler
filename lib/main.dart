@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leo_quizzler_app/MockData.dart';
 import 'package:leo_quizzler_app/Questions.dart';
 
 void main(){
@@ -29,32 +30,12 @@ class LeoQuizPage extends StatefulWidget {
 
 class _LeoQuizPageState extends State<LeoQuizPage> {
   var scoreTracker =new List<Icon>();
-  var count=0;
+  int count=0;
   var trueIcon=Icon(Icons.done,color: Colors.green,);
   var falseIcon=Icon(Icons.close,color:Colors.red);
-  List<Question> question=[
-    Question(
-      questiontext:"Tree is Living Organism",
-      answer:true,
-    ),
-    Question(
-      questiontext: "All humans are Fools",
-      answer: false
-    ),
-    Question(
-      questiontext: "We are Living Organisms",
-      answer: true
-    ),
-    Question(
-      questiontext: "developers are not Humans",
-      answer: false
-    ),
-    Question(
-      questiontext: "Human is made up of blood Cells",
-      answer: true
-    ),
-
-  ];
+  
+  static List<Question> question=MockData.fetctData();
+  int length=question.length-1;
   @override
   Widget build(BuildContext context) {
     return quizPage();
@@ -62,35 +43,32 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
   Widget quizPage()
   {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Center(
               child: Text(
-                "Here is a question text",
+               question[count].questionText,
                 style: TextStyle(
                   fontSize: 24.0,
-                  // fontWeight: FontWeight.normal,
                   color: Colors.white,
                 ),
             ),
           ),),
-          // SizedBox(height:30.0),
 
           Expanded(
             flex: 2,
             child: Column(
               children: <Widget>[
-                // SizedBox(height: 30.0,),
                 Expanded(
-                  flex: 0,
                    child: Column(
+                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: <Widget>[
                         Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 13.0,right: 13.0,top: 70.0,bottom: 10.0,),
+                              padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 30.0,bottom: 8.0),
                               child: FlatButton(
                               child: Text("True",style: TextStyle(
                                 fontSize: 24.0,
@@ -106,7 +84,7 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
                         ),
                         Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 13.0,right: 13.0,bottom: 70.0,top: 10.0),
+                              padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 30.0,top: 8.0),
                               child: FlatButton(
                               child: Text("False",style:TextStyle(
                                 fontSize: 24.0,
