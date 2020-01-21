@@ -2,12 +2,12 @@
 
 class Question{
 
-var questionText;
-var answer;
+final String questionText;
+final bool answer;
   Question(
    {
-     questiontext,
-     answer
+     this.questionText,
+     this.answer
    }
   );
 }
