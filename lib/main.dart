@@ -5,41 +5,46 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 void main(){
   runApp(new Quizzler());
 }
-
 class Quizzler extends StatelessWidget {
+ 
+// static bool themEnabled=false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // theme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
       title: "Leo Quizzler",
-      home: Scaffold(
-        backgroundColor:Colors.black,
-        body: SafeArea(
-         child:Padding(
-          padding: EdgeInsets.symmetric(vertical:10),
-          child: LeoQuizPage(),
-        ),
-      ),
-    ));
+      home: LeoQuizPage());
   }
 }
 
 class LeoQuizPage extends StatefulWidget {
+  
   @override
   _LeoQuizPageState createState() => _LeoQuizPageState();
 }
 
 class _LeoQuizPageState extends State<LeoQuizPage> {
+Color bgColor=Colors.black;  
+static Color fontColor=Colors.white;
+static Color tColor=Colors.green;
+static Color fColor=Colors.red;
   var scoreTracker =new List<Icon>();
   int count=0;
-  var trueIcon=Icon(Icons.done,color: Colors.green,);
-  var falseIcon=Icon(Icons.close,color:Colors.red);
+  var trueIcon=Icon(Icons.done,color:tColor);
+  var falseIcon=Icon(Icons.close,color:fColor);
   
   static List<Question> question=MockData.fetctData();
   int length=question.length;
   @override
   Widget build(BuildContext context) {
-    return quizPage();
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical:10.0),
+          child: quizPage(),
+        )));
   }
   Widget quizPage()
   {
@@ -48,17 +53,40 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
         children: <Widget>[
           Expanded(
             flex: 3,
-            child: Center(
-              child: Text(
-                  question[count].questionText,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25.0,
-              color: Colors.white,
-            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+               IconButton(
+                    icon: Icon(Icons.lightbulb_outline,color: tColor,size: 40,),
+                    onPressed: (){
+                      setState(() {
+                        if(bgColor==Colors.black){
+                        // tColor=fColor;
+                      fontColor=Colors.black;
+                      bgColor=Colors.white;
+                        }
+                        else{
+                          // tColor=Colors.green;
+                          fontColor=Colors.white;
+                          bgColor=Colors.black;
+                        }
+                      });
+                    },
+                ),
+                 SizedBox(height: 20.0),
+                Center(
+                  child: Text(
+                      question[count].questionText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: fontColor,
+                ),
 
-            ),
-          ),),
+                ),
+          ),
+              ],
+            ),),
 
           Expanded(
             flex: 2,
@@ -85,9 +113,11 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
                                  
                                   setState(() {
                                      if(true==question[count].answer){
+                                       tColor=Colors.green;
                                     scoreTracker.add(trueIcon);
                                   }
                                   else{
+                                    tColor=fColor;
                                     scoreTracker.add(falseIcon);
                                   }
 
@@ -119,10 +149,12 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
                               onPressed: (){
                                  
                                   setState(() {
+                                    tColor=Colors.green;
                                      if(false==question[count].answer){
                                     scoreTracker.add(trueIcon);
                                   }
                                   else{
+                                    tColor=fColor;
                                     scoreTracker.add(falseIcon);
                                   }
 
