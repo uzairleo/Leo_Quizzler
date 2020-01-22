@@ -10,6 +10,7 @@ class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Leo Quizzler",
       home: Scaffold(
         backgroundColor:Colors.black,
@@ -68,45 +69,76 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
                      mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                      children: <Widget>[
-                       _renderButton("True", Colors.green, true, const EdgeInsets.only(left: 8.0,right: 8.0,top: 30.0,bottom: 8.0)),
-                        // Expanded(
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 30.0,bottom: 8.0),
-                        //       child: FlatButton(
-                        //       child: Text("True",style: TextStyle(
-                        //         fontSize: 24.0,
-                        //         fontWeight:FontWeight.w600,
-                        //       ),),
-                        //       onPressed: (){
-                        //           if(question[count].answer){
-                        //             scoreTracker.add(trueIcon);
-                        //           }
-                        //           else{
-                        //             scoreTracker.add(falseIcon);
-                        //           }
-                        //       },
-                        //       colorBrightness: Brightness.dark,
-                        //       color: Colors.green,
-                        //   ),
-                        //     ),
-                        // ),
-                        _renderButton("text", Colors.red,false,const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 30.0,top: 8.0) ),
-                        // Expanded(
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 30.0,top: 8.0),
-                        //       child: FlatButton(
-                        //       child: Text("False",style:TextStyle(
-                        //         fontSize: 24.0,
-                        //         fontWeight: FontWeight.w600,
-                        //       )),
-                        //       onPressed: (){
 
-                        //       },
-                        //       colorBrightness: Brightness.dark,
-                        //       color: Colors.red,
-                        //   ),
-                        //     ),
-                        // )
+                      //  _renderButton("True", Colors.green, true, const EdgeInsets.only(left: 8.0,right: 8.0,top: 30.0,bottom: 8.0)),
+                       
+                       
+                        Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 40.0,bottom: 8.0),
+                              child: FlatButton(
+                              child: Text("True",style: TextStyle(
+                                fontSize: 24.0,
+                                fontWeight:FontWeight.w600,
+                              ),),
+                              onPressed: (){
+                                 
+                                  setState(() {
+                                     if(true==question[count].answer){
+                                    scoreTracker.add(trueIcon);
+                                  }
+                                  else{
+                                    scoreTracker.add(falseIcon);
+                                  }
+
+              if(count == length-1){//brain of logic is here
+                print('Restarted the app');
+                _showAlert();
+                scoreTracker.clear();
+              }
+              count = (count + 1)%length;
+            });
+                              },
+                              colorBrightness: Brightness.dark,
+                              color: Colors.green,
+                          ),
+                            ),
+                        ),
+
+                        // _renderButton("text", Colors.red,false,const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 30.0,top: 8.0) ),
+                        
+                        
+                        Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 40.0,top: 8.0),
+                              child: FlatButton(
+                              child: Text("False",style:TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w600,
+                              )), 
+                              onPressed: (){
+                                 
+                                  setState(() {
+                                     if(false==question[count].answer){
+                                    scoreTracker.add(trueIcon);
+                                  }
+                                  else{
+                                    scoreTracker.add(falseIcon);
+                                  }
+
+              if(count == length-1){//brain of logic is here
+                print('Restarted the app');
+                _showAlert();
+                scoreTracker.clear();
+              }
+              count = (count + 1)%length;
+            });
+                              },
+                              colorBrightness: Brightness.dark,
+                              color: Colors.red,
+                          ),
+                            ),
+                        )
                     ],
                   ),
                 ),
@@ -151,7 +183,7 @@ class _LeoQuizPageState extends State<LeoQuizPage> {
     Alert(
       context: context,
       type: AlertType.success,
-      title: "Game End",
+      title: "Game Ends",
       desc: "Click Restart button to restart the game!",
       buttons: [
         DialogButton(
